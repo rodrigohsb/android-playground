@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Android-playground</string>
+
+    <string name="delete_user_button_text">Excluir</string>
+    <string name="add_button_text">Adicionar</string>
+    <string name="next_button_text">Próximo</string>
+    <string name="fantasy_name">Nome Fantasia</string>
+    <string name="owner_name">Proprietário</string>
+    <string name="is_mei">É MEI?</string>
+    <string name="since">Ativa desde</string>
+    <string name="home_empty_text">Não há clientes cadastrados</string>
+    <string name="yes">SIM</string>
+    <string name="no">Não</string>
+    <string name="register">CRIAR CADASTRO</string>
 </resources>
