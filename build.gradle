@@ -49,5 +49,7 @@ ext{
 
     roomVersion = '1.0.0'
 
+    gsonVersion = '2.7'
+
     kodeinVersion = '4.1.0'
 }
