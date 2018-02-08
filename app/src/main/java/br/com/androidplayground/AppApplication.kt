@@ -13,7 +13,7 @@ class AppApplication : Application(), KodeinAware {
         lateinit var instance: AppApplication
     }
 
-    override val kodein by Injector().dependencies
+    override val kodein by Injector(this).dependencies
 
     override fun onCreate() {
         super.onCreate()

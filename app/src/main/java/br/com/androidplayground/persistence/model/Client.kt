@@ -10,13 +10,16 @@ import br.com.androidplayground.persistence.model.Client.Companion.TABLE_NAME
  * @rodrigohsb
  */
 @Entity(tableName = TABLE_NAME)
-class Client(@PrimaryKey(autoGenerate = true) var id: Int,
+data class Client constructor(@PrimaryKey(autoGenerate = true) var id: Int,
              var name : String,
              var email: String,
              var phone: String,
              @Embedded var company: Company){
     @Ignore
     lateinit var prefix : String
+
+    @Ignore
+    constructor() : this(1,"","","", Company())
 
     companion object {
         const val TABLE_NAME = "CLIENTS"

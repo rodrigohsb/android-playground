@@ -1,9 +1,11 @@
 package br.com.androidplayground.home.ui
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -40,12 +42,16 @@ class HomeActivity : AppCompatActivity(),
         ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
     }
 
+    companion object {
+        private val REQUEST_CODE = 100
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_home)
 
         home_add_user_btn.setOnClickListener({
-            RegisterActivity.startActivity(this)
+                RegisterActivity.startActivityForResult(this, REQUEST_CODE)
         })
     }
 
@@ -60,6 +66,18 @@ class HomeActivity : AppCompatActivity(),
         removeObservers()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(shouldReloadContent(requestCode,resultCode)){
+            viewModel.reloadContent()
+        }
+    }
+
+    private fun shouldReloadContent(requestCode: Int, resultCode: Int) =
+            resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE
+
     private fun removeObservers() {
         viewModel.isLoading.removeObservers(this)
         viewModel.repositories.removeObservers(this)
@@ -68,15 +86,15 @@ class HomeActivity : AppCompatActivity(),
     private fun initObservers() {
 
         viewModel.isLoading.observe(this,
-            Observer<Boolean> {
-                when(it){
-                    true -> {
-                        showLoading()
-                        clearViews()
+                Observer<Boolean> {
+                    when(it){
+                        true -> {
+                            showLoading()
+                            clearViews()
+                        }
+                        false -> hideLoading()
                     }
-                    false -> hideLoading()
-                }
-            })
+                })
 
         viewModel.repositories.observe(this,
                 Observer<List<Client>> {
@@ -122,7 +140,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(this,"Should go to details",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Opa",Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {

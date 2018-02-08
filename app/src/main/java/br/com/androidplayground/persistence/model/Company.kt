@@ -6,8 +6,11 @@ import java.util.*
 /**
  * @rodrigohsb
  */
-class Company(@ColumnInfo(name = "fantasy_name") var fantasyName : String,
+data class Company(@ColumnInfo(name = "fantasy_name") var fantasyName : String,
               var cnpj : String,
               var since: Date,
-              @ColumnInfo(name = "is_mei") var isMei: Int){
+              @ColumnInfo(name = "is_mei") var isMei: Boolean){
+    @Ignore
+    constructor() : this("","", Date(),true)
+
 }
