@@ -1,11 +1,9 @@
 package br.com.androidplayground.home.ui
 
-import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,8 +12,8 @@ import br.com.androidplayground.R
 import br.com.androidplayground.extensions.hide
 import br.com.androidplayground.extensions.show
 import br.com.androidplayground.home.adapter.HomeAdapter
+import br.com.androidplayground.home.dto.ContactDTO
 import br.com.androidplayground.home.viewmodel.HomeViewModel
-import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.screenbehaviors.EmptyState
 import br.com.androidplayground.screenbehaviors.LoadingView
 import br.com.androidplayground.register.ui.RegisterActivity
@@ -42,16 +40,12 @@ class HomeActivity : AppCompatActivity(),
         ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
     }
 
-    companion object {
-        private val REQUEST_CODE = 100
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_home)
 
         home_add_user_btn.setOnClickListener({
-                RegisterActivity.startActivityForResult(this, REQUEST_CODE)
+                RegisterActivity.startActivity(this)
         })
     }
 
@@ -66,21 +60,9 @@ class HomeActivity : AppCompatActivity(),
         removeObservers()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(shouldReloadContent(requestCode,resultCode)){
-            viewModel.reloadContent()
-        }
-    }
-
-    private fun shouldReloadContent(requestCode: Int, resultCode: Int) =
-            resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE
-
     private fun removeObservers() {
         viewModel.isLoading.removeObservers(this)
-        viewModel.repositories.removeObservers(this)
+        viewModel.contacts.removeObservers(this)
     }
 
     private fun initObservers() {
@@ -96,8 +78,8 @@ class HomeActivity : AppCompatActivity(),
                     }
                 })
 
-        viewModel.repositories.observe(this,
-                Observer<List<Client>> {
+        viewModel.contacts.observe(this,
+                Observer<List<ContactDTO>> {
                     it?.let {
                         if(it.isEmpty()){
                             showEmptyView()
@@ -123,18 +105,14 @@ class HomeActivity : AppCompatActivity(),
         repository_rv.hide()
     }
 
-    private fun createRecyclerView(array: List<Client>) {
+    private fun createRecyclerView(array: List<ContactDTO>) {
 
         with(repository_rv) {
 
             layoutManager = lManager
-
             userAdapter.clear()
             userAdapter.addData(array)
-
-            //TODO Adapter is always the same. Extract to bind just once
             adapter = userAdapter
-
             repository_rv.show()
         }
     }

@@ -21,8 +21,8 @@ class RegisterActivity : AppCompatActivity(){
     private val viewModel: RegisterViewModel by kodein.instance()
 
     companion object {
-        fun startActivityForResult(activity: Activity, requestCode: Int) {
-            activity.startActivityForResult(Intent(activity, RegisterActivity::class.java),requestCode)
+        fun startActivity(activity: Activity) {
+            activity.startActivity(Intent(activity, RegisterActivity::class.java))
         }
     }
 
@@ -63,14 +63,12 @@ class RegisterActivity : AppCompatActivity(){
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        setResult(Activity.RESULT_CANCELED)
         finish()
         return true
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        setResult(Activity.RESULT_CANCELED)
         finish()
     }
 }

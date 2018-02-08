@@ -15,8 +15,6 @@ data class Client constructor(@PrimaryKey(autoGenerate = true) var id: Int,
              var email: String,
              var phone: String,
              @Embedded var company: Company){
-    @Ignore
-    lateinit var prefix : String
 
     @Ignore
     constructor() : this(1,"","","", Company())

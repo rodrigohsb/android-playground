@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.androidplayground.R
-import br.com.androidplayground.persistence.model.Client
+import br.com.androidplayground.home.dto.ContactDTO
 import kotlinx.android.synthetic.main.layout_user_item.view.*
 
 /**
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.layout_user_item.view.*
 class HomeAdapter(private var listener: OnItemClickListener)
     : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    private var repositories: MutableList<Client> = ArrayList()
+    private var repositories: MutableList<ContactDTO> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
@@ -37,17 +37,17 @@ class HomeAdapter(private var listener: OnItemClickListener)
 
     class ViewHolder(private val rootView: View) : RecyclerView.ViewHolder(rootView) {
 
-        fun bind(user: Client, listener: OnItemClickListener) {
-            with(user){
-                rootView.user_avatar.text = user.prefix
-                rootView.company_name.text = user.company.fantasyName
-                rootView.owner_name.text = user.name
+        fun bind(contact: ContactDTO, listener: OnItemClickListener) {
+            with(contact){
+                rootView.user_avatar.text = contact.prefix
+                rootView.company_name.text = contact.companyName
+                rootView.owner_name.text = contact.name
                 rootView.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
             }
         }
     }
 
-    fun addData(list: List<Client>) {
+    fun addData(list: List<ContactDTO>) {
         repositories.addAll(list)
         notifyDataSetChanged()
     }

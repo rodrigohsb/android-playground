@@ -13,11 +13,11 @@ class RetrieveContactsInMemory : RetrieveContacts {
 
     override fun fetchAll(): List<Client>? {
 
-        return createInMemory()
-//        return fetchFromFile()
+        return fromMemory()
+//        return fromFile()
     }
 
-    private fun createInMemory(): List<Client>? {
+    private fun fromMemory(): List<Client>? {
 
         val company = Company()
         company.since = Date()
@@ -26,7 +26,6 @@ class RetrieveContactsInMemory : RetrieveContacts {
         company.isMei = true
 
         val client = Client()
-        client.prefix = "ABC"
         client.email = "teste@teste.com.br"
         client.phone = "21999999999"
         client.id = 0
@@ -47,29 +46,11 @@ class RetrieveContactsInMemory : RetrieveContacts {
         return clients
     }
 
-    private fun fetchFromFile(): List<Client> {
+    private fun fromFile(): List<Client> {
         val jsonMock = ReadFile().read(R.raw.mock_clients_no_content)
-        val mockClients = convertJsonToClients(jsonMock)
-
-        mockClients?.forEach { it.prefix = extractLetters(it.name) }
-        return mockClients.toList()
+        return convertJsonToClients(jsonMock).toList()
     }
 
     private fun convertJsonToClients(json: String) =
             Gson().fromJson(json, Array<Client>::class.java)
-
-    private fun extractLetters(name: String) : String{
-
-        val letters = firstLetters(name)
-
-        var result = ""
-        letters.forEach { result += it.value.toUpperCase() }
-
-        if(result.length > 3) result = result.substring(0,3)
-
-        return result
-    }
-
-    private fun firstLetters(name: String): Sequence<MatchResult> =
-            """\b\w""".toRegex().findAll(name)
 }
