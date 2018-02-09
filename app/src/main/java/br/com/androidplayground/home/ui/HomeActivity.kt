@@ -4,23 +4,21 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import br.com.androidplayground.R
-import br.com.androidplayground.extensions.hide
-import br.com.androidplayground.extensions.show
 import br.com.androidplayground.home.adapter.HomeAdapter
-import br.com.androidplayground.home.dto.ContactDTO
+import br.com.androidplayground.home.entryModel.ContactEntryModel
 import br.com.androidplayground.home.viewmodel.HomeViewModel
+import br.com.androidplayground.register.ui.RegisterActivity
 import br.com.androidplayground.screenbehaviors.EmptyState
 import br.com.androidplayground.screenbehaviors.LoadingView
-import br.com.androidplayground.register.ui.RegisterActivity
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
-
 import kotlinx.android.synthetic.main.layout_home.*
 
 /**
@@ -44,7 +42,7 @@ class HomeActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_home)
 
-        home_add_user_btn.setOnClickListener({
+        homeAddBtn.setOnClickListener({
                 RegisterActivity.startActivity(this)
         })
     }
@@ -79,7 +77,7 @@ class HomeActivity : AppCompatActivity(),
                 })
 
         viewModel.contacts.observe(this,
-                Observer<List<ContactDTO>> {
+                Observer<List<ContactEntryModel>> {
                     it?.let {
                         if(it.isEmpty()){
                             showEmptyView()
@@ -102,38 +100,37 @@ class HomeActivity : AppCompatActivity(),
     }
 
     private fun hideRecyclerView() {
-        repository_rv.hide()
+        recyclerView.visibility = View.GONE
     }
 
-    private fun createRecyclerView(array: List<ContactDTO>) {
+    private fun createRecyclerView(array: List<ContactEntryModel>) {
 
-        with(repository_rv) {
-
+        with(recyclerView) {
             layoutManager = lManager
             userAdapter.clear()
             userAdapter.addData(array)
             adapter = userAdapter
-            repository_rv.show()
+            recyclerView.visibility = View.VISIBLE
         }
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(this,"Opa",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Should go to details", Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {
-        loading.show()
+        loading.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        loading.hide()
+        loading.visibility = View.GONE
     }
 
     override fun hideEmptyView() {
-        home_empty_state.hide()
+        homeEmptyView.visibility = View.GONE
     }
 
     override fun showEmptyView() {
-        home_empty_state.show()
+        homeEmptyView.visibility = View.VISIBLE
     }
 }

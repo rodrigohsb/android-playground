@@ -1,7 +1,7 @@
 package br.com.androidplayground.contacts
 
-import br.com.androidplayground.home.dto.ContactDTO
-import br.com.androidplayground.home.viewmodel.HomeViewModel
+import br.com.androidplayground.home.entryModel.ContactEntryModel
+import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.persistence.RetrieveContacts
 import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.persistence.model.Company
@@ -9,6 +9,7 @@ import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,22 +22,23 @@ class ContactsProviderTest {
     @Mock
     lateinit var retrieveContacts : RetrieveContacts
 
-    lateinit var homeViewModel : HomeViewModel
+    private lateinit var contactHandler: ContactsHandler
 
-    lateinit var company : Company
-    lateinit var client : Client
-    lateinit var clients : ArrayList<Client>
+    private lateinit var company : Company
+    private lateinit var client : Client
+    private lateinit var clients : ArrayList<Client>
 
-    lateinit var clientDTOs : ArrayList<ContactDTO>
+    private lateinit var clientEntryModels: ArrayList<ContactEntryModel>
 
     @Before
     fun setup(){
 
         initMocks(this)
-        homeViewModel = HomeViewModel(retrieveContacts)
+        contactHandler = ContactsHandler()
 
         createClient()
-
+        
+        `when`(retrieveContacts.fetchAll()).thenReturn(clients)
     }
 
     private fun createClient() {
@@ -60,9 +62,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo"
 
-        clientDTOs = homeViewModel.convertToDTO(clients)
+        clientEntryModels = contactHandler.handleContacts(clients)
 
-        assertEquals(clientDTOs[0].prefix, "R")
+        assertEquals(clientEntryModels[0].prefix, "R")
     }
 
     @Test
@@ -70,9 +72,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus"
 
-        clientDTOs = homeViewModel.convertToDTO(clients)
+        clientEntryModels = contactHandler.handleContacts(clients)
 
-        assertEquals(clientDTOs[0].prefix, "RH")
+        assertEquals(clientEntryModels[0].prefix, "RH")
     }
 
     @Test
@@ -80,9 +82,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus da"
 
-        clientDTOs = homeViewModel.convertToDTO(clients)
+        clientEntryModels = contactHandler.handleContacts(clients)
 
-        assertEquals(clientDTOs[0].prefix, "RHD")
+        assertEquals(clientEntryModels[0].prefix, "RHD")
     }
 
     @Test
@@ -90,10 +92,10 @@ class ContactsProviderTest {
 
        client.name = "Rodrigo Haus da Silva Bacellar"
 
-        clientDTOs = homeViewModel.convertToDTO(clients)
+        clientEntryModels = contactHandler.handleContacts(clients)
 
-        assertEquals(clientDTOs[0].prefix, "RHD")
-        assertEquals(clientDTOs[0].companyName, "Haus SA")
-        assertEquals(clientDTOs[0].name, "Rodrigo Haus da Silva Bacellar")
+        assertEquals(clientEntryModels[0].prefix, "RHD")
+        assertEquals(clientEntryModels[0].companyName, "Haus SA")
+        assertEquals(clientEntryModels[0].name, "Rodrigo Haus da Silva Bacellar")
     }
 }

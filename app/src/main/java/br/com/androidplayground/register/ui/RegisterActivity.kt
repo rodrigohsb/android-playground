@@ -34,10 +34,13 @@ class RegisterActivity : AppCompatActivity(){
 
     private fun initActionBar() {
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-        supportActionBar?.title = getString(R.string.register)
+        supportActionBar?.apply {
+            this.setDisplayHomeAsUpEnabled(true)
+            this.setDisplayShowHomeEnabled(true)
+            this.setDisplayShowTitleEnabled(true)
+            this.title = getString(R.string.register)
+        }
+
     }
 
     override fun onStart() {

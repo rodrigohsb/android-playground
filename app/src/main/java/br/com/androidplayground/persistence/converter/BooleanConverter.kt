@@ -1,7 +1,6 @@
 package br.com.androidplayground.persistence.converter
 
 import android.arch.persistence.room.TypeConverter
-import java.util.*
 
 /**
  * @rodrigohsb

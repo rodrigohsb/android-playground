@@ -1,23 +1,23 @@
 package br.com.androidplayground.persistence
 
-import br.com.androidplayground.R
 import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.persistence.model.Company
-import com.google.gson.Gson
 import java.util.*
+
+import br.com.androidplayground.R
+import com.google.gson.Gson
 
 /**
  * @rodrigohsb
  */
 class RetrieveContactsInMemory : RetrieveContacts {
 
-    override fun fetchAll(): List<Client>? {
-
-        return fromMemory()
+    override fun fetchAll(): List<Client> {
+        return createInMemory()
 //        return fromFile()
     }
 
-    private fun fromMemory(): List<Client>? {
+    private fun createInMemory(): List<Client> {
 
         val company = Company()
         company.since = Date()
@@ -29,7 +29,7 @@ class RetrieveContactsInMemory : RetrieveContacts {
         client.email = "teste@teste.com.br"
         client.phone = "21999999999"
         client.id = 0
-        client.name = "Rodrigo Haus"
+        client.name = "Rodrigo Haus da Silva Bacellar"
         client.company = company
 
         val clients = ArrayList<Client>()

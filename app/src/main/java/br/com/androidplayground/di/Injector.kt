@@ -1,8 +1,10 @@
 package br.com.androidplayground.di
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import com.github.salomonbrys.kodein.Kodein
+import android.arch.persistence.room.Room
 import br.com.androidplayground.BuildConfig
+import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.home.viewmodel.HomeViewModel
 import br.com.androidplayground.persistence.*
 import br.com.androidplayground.persistence.dao.ClientDAO
@@ -13,6 +15,7 @@ import com.github.salomonbrys.kodein.*
 /**
  * @rodrigohsb
  */
+
 class Injector(private val context: Context) {
 
     val dependencies = Kodein.lazy {
@@ -41,7 +44,11 @@ class Injector(private val context: Context) {
         }
 
         bind<HomeViewModel>() with provider {
-            HomeViewModel(instance())
+            HomeViewModel(instance(), instance())
+        }
+
+        bind<ContactsHandler>() with provider {
+            ContactsHandler()
         }
 
         bind<RegisterViewModel>() with provider {

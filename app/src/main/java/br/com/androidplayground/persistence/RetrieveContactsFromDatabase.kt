@@ -8,6 +8,6 @@ import br.com.androidplayground.persistence.model.Client
  */
 class RetrieveContactsFromDatabase(private val clientDAO: ClientDAO) : RetrieveContacts {
 
-    override fun fetchAll(): List<Client>? = clientDAO.fetchAll()
+    override fun fetchAll(): List<Client> = clientDAO.fetchAll()
 
 }
