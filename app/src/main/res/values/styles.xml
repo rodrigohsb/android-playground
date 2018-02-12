@@ -8,4 +8,49 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RegisterTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="HomeItemCard">
+        <item name="android:layout_marginTop">@dimen/spacing_4dp</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_4dp</item>
+        <item name="android:layout_marginStart">@dimen/spacing_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_8dp</item>
+    </style>
+
+    <style name="HomeItemAvatar">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/font_size_32sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HomeItemText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_size_16sp</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/button_style</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/font_size_16sp</item>
+        <item name="android:padding">@dimen/spacing_16dp</item>
+    </style>
+
+    <style name="AddButtonStyle" parent="ButtonStyle">
+        <item name="android:text">@string/add_button_text</item>
+    </style>
+
+    <style name="NextButtonStyle" parent="ButtonStyle">
+        <item name="android:text">@string/next_button_text</item>
+    </style>
+
 </resources>

@@ -15,8 +15,12 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
         }
     }
 }
@@ -40,6 +44,7 @@ dependencies {
     implementation "com.github.salomonbrys.kodein:kodein:${kodeinVersion}"
     implementation "com.github.salomonbrys.kodein:kodein-android:${kodeinVersion}"
 
+    implementation "com.google.code.gson:gson:${gsonVersion}"
 
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "junit:junit:${junitVersion}"

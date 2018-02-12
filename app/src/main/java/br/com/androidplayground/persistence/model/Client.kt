@@ -15,8 +15,9 @@ class Client(@PrimaryKey(autoGenerate = true) var id: Int,
              var email: String,
              var phone: String,
              @Embedded var company: Company){
+
     @Ignore
-    lateinit var prefix : String
+    constructor() : this(1,"","","", Company())
 
     companion object {
         const val TABLE_NAME = "CLIENTS"
