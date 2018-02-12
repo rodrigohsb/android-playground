@@ -1,6 +1,5 @@
 package br.com.androidplayground.contacts
 
-import br.com.androidplayground.home.entryModel.ContactEntryModel
 import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.persistence.RetrieveContacts
 import br.com.androidplayground.persistence.model.Client
@@ -17,44 +16,40 @@ import kotlin.collections.ArrayList
 /**
  * @rodrigohsb
  */
-class ContactsProviderTest {
-
-    @Mock
-    lateinit var retrieveContacts : RetrieveContacts
+class RetrieveContactsTest {
 
     private lateinit var contactHandler: ContactsHandler
 
-    private lateinit var company : Company
+    @Mock
+    private lateinit var retrieveContacts: RetrieveContacts
+
     private lateinit var client : Client
     private lateinit var clients : ArrayList<Client>
 
-    private lateinit var clientEntryModels: ArrayList<ContactEntryModel>
-
     @Before
     fun setup(){
-
         initMocks(this)
         contactHandler = ContactsHandler()
 
         createClient()
-        
-        `when`(retrieveContacts.fetchAll()).thenReturn(clients)
     }
 
     private fun createClient() {
-        company = Company(fantasyName = "Haus SA",
-                cnpj = "123456789",
+        val company = Company(fantasyName = "Haus SA",
+                cnpj = "",
                 since = Date(),
                 isMei = true)
 
         client = Client(id = 0,
-                name = "Rodrigo",
-                email = "teste@teste.com.br",
-                phone = "21999999999",
+                name = "",
+                email = "",
+                phone = "",
                 company = company)
 
         clients = ArrayList<Client>()
         clients.add(client)
+
+        `when`(retrieveContacts.fetchAll()).thenReturn(clients)
     }
 
     @Test
@@ -62,9 +57,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo"
 
-        clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
-        assertEquals(clientEntryModels[0].prefix, "R")
+        assertEquals(clientEntryModels[0].prefix,"R")
     }
 
     @Test
@@ -72,9 +67,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus"
 
-        clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
-        assertEquals(clientEntryModels[0].prefix, "RH")
+        assertEquals(clientEntryModels[0].prefix,"RH")
     }
 
     @Test
@@ -82,9 +77,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus da"
 
-        clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
-        assertEquals(clientEntryModels[0].prefix, "RHD")
+        assertEquals(clientEntryModels[0].prefix,"RHD")
     }
 
     @Test
@@ -92,7 +87,7 @@ class ContactsProviderTest {
 
        client.name = "Rodrigo Haus da Silva Bacellar"
 
-        clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
         assertEquals(clientEntryModels[0].prefix, "RHD")
         assertEquals(clientEntryModels[0].companyName, "Haus SA")

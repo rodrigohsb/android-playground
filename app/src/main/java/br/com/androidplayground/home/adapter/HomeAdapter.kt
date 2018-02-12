@@ -32,7 +32,7 @@ class HomeAdapter(private var listener: OnItemClickListener)
             repositories.size
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(prefix: String)
     }
 
     class ViewHolder(private val rootView: View) : RecyclerView.ViewHolder(rootView) {
@@ -42,7 +42,7 @@ class HomeAdapter(private var listener: OnItemClickListener)
                 rootView.user_avatar.text = contact.prefix
                 rootView.company_name.text = contact.companyName
                 rootView.owner_name.text = contact.name
-                rootView.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
+                rootView.setOnClickListener({ _ -> listener.onItemClick(prefix) })
             }
         }
     }

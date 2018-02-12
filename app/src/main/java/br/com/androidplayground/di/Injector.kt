@@ -18,7 +18,7 @@ import com.github.salomonbrys.kodein.*
 
 class Injector(private val context: Context) {
 
-    val dependencies = Kodein.lazy {
+    val dependencies = Kodein.Module(allowSilentOverride = true) {
 
         bind<ClientDAO>() with singleton {
             val db: Database = instance()
@@ -26,18 +26,17 @@ class Injector(private val context: Context) {
         }
 
         bind<Database>() with singleton {
-            Room.databaseBuilder(context, Database::class.java, "playground").build()
+            Room.databaseBuilder(context, Database::class.java, "playground")
+                    .allowMainThreadQueries()
+                    .build()
         }
 
         bind<RetrieveContacts>() with provider {
-            when(BuildConfig.DEBUG){
-                true -> RetrieveContactsInMemory()
-                false -> RetrieveContactsFromDatabase(instance())
-            }
+            RetrieveContactsInMemory()
         }
 
         bind<RetrieveLabels>() with provider {
-            when(BuildConfig.DEBUG){
+            when (BuildConfig.DEBUG) {
                 true -> RetrieveLabelsInMemory()
                 false -> RetrieveLabelsFromDatabase()
             }
