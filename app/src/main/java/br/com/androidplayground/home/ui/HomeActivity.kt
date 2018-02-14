@@ -4,8 +4,8 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
@@ -13,13 +13,12 @@ import br.com.androidplayground.R
 import br.com.androidplayground.home.adapter.HomeAdapter
 import br.com.androidplayground.home.entryModel.ContactEntryModel
 import br.com.androidplayground.home.viewmodel.HomeViewModel
+import br.com.androidplayground.register.ui.RegisterActivity
 import br.com.androidplayground.screenbehaviors.EmptyState
 import br.com.androidplayground.screenbehaviors.LoadingView
-import br.com.androidplayground.register.ui.RegisterActivity
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
-
 import kotlinx.android.synthetic.main.layout_home.*
 
 /**
@@ -43,8 +42,8 @@ class HomeActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_home)
 
-        home_add_user_btn.setOnClickListener({
-            RegisterActivity.startActivity(this)
+        homeAddBtn.setOnClickListener({
+                RegisterActivity.startActivity(this)
         })
     }
 
@@ -67,15 +66,15 @@ class HomeActivity : AppCompatActivity(),
     private fun initObservers() {
 
         viewModel.isLoading.observe(this,
-            Observer<Boolean> {
-                when(it){
-                    true -> {
-                        showLoading()
-                        clearViews()
+                Observer<Boolean> {
+                    when(it){
+                        true -> {
+                            showLoading()
+                            clearViews()
+                        }
+                        false -> hideLoading()
                     }
-                    false -> hideLoading()
-                }
-            })
+                })
 
         viewModel.contacts.observe(this,
                 Observer<List<ContactEntryModel>> {
@@ -116,7 +115,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(this,"Should go to details",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Should go to details", Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {
@@ -128,10 +127,10 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun hideEmptyView() {
-        home_empty_state.visibility = View.GONE
+        homeEmptyView.visibility = View.GONE
     }
 
     override fun showEmptyView() {
-        home_empty_state.visibility = View.VISIBLE
+        homeEmptyView.visibility = View.VISIBLE
     }
 }

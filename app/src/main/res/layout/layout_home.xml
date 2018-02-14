@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:indeterminate="true"
-        app:layout_constraintBottom_toTopOf="@id/home_add_user_btn"
+        app:layout_constraintBottom_toTopOf="@id/homeAddBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         tools:listitem="@layout/layout_user_item" />
 
     <Button
-        android:id="@+id/home_add_user_btn"
+        android:id="@+id/homeAddBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/AddButtonStyle"
@@ -41,7 +41,7 @@
 
 
     <TextView
-        android:id="@+id/home_empty_state"
+        android:id="@+id/homeEmptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/home_empty_text"

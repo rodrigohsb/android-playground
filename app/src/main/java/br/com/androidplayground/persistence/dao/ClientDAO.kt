@@ -16,7 +16,7 @@ interface ClientDAO {
     }
 
     @Query(FETCH_ALL)
-    fun fetchAll(): LiveData<List<Client>>
+    fun fetchAll(): List<Client>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(u: Client)

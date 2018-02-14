@@ -10,7 +10,7 @@ import br.com.androidplayground.persistence.model.Client.Companion.TABLE_NAME
  * @rodrigohsb
  */
 @Entity(tableName = TABLE_NAME)
-class Client(@PrimaryKey(autoGenerate = true) var id: Int,
+data class Client constructor(@PrimaryKey(autoGenerate = true) var id: Int,
              var name : String,
              var email: String,
              var phone: String,

@@ -4,6 +4,9 @@ import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.persistence.model.Company
 import java.util.*
 
+import br.com.androidplayground.R
+import com.google.gson.Gson
+
 /**
  * @rodrigohsb
  */
@@ -11,6 +14,7 @@ class RetrieveContactsInMemory : RetrieveContacts {
 
     override fun fetchAll(): List<Client> {
         return createInMemory()
+//        return fromFile()
     }
 
     private fun createInMemory(): List<Client> {
@@ -41,4 +45,12 @@ class RetrieveContactsInMemory : RetrieveContacts {
 
         return clients
     }
+
+    private fun fromFile(): List<Client> {
+        val jsonMock = ReadFile().read(R.raw.mock_clients_no_content)
+        return convertJsonToClients(jsonMock).toList()
+    }
+
+    private fun convertJsonToClients(json: String) =
+            Gson().fromJson(json, Array<Client>::class.java)
 }
