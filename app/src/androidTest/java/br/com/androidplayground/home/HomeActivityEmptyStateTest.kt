@@ -1,6 +1,7 @@
 package br.com.androidplayground.home
 
 import br.com.androidplayground.AcceptanceTest
+import br.com.androidplayground.home.robots.HomeRobot
 import br.com.androidplayground.home.ui.HomeActivity
 import org.junit.Test
 import br.com.androidplayground.persistence.RetrieveContacts
@@ -14,7 +15,7 @@ class HomeActivityEmptyStateTest : AcceptanceTest<HomeActivity>(HomeActivity::cl
 
     @Test
     fun testWhenHasNoContent() {
-        homeRobot
+        HomeRobot()
                 .withoutContacts()
                     .isSuccess()
     }

@@ -1,6 +1,7 @@
 package br.com.androidplayground.home
 
 import br.com.androidplayground.AcceptanceTest
+import br.com.androidplayground.home.robots.HomeRobot
 import br.com.androidplayground.home.ui.HomeActivity
 import br.com.androidplayground.persistence.RetrieveContacts
 import br.com.androidplayground.persistence.RetrieveContactsInMemory
@@ -17,7 +18,7 @@ class HomeActivityGoToRegisterTest : AcceptanceTest<HomeActivity>(HomeActivity::
     @Test
     fun testWhenGoToRegister() {
 
-        homeRobot
+        HomeRobot()
                 .createNewOne()
                     .isSuccess()
     }

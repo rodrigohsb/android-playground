@@ -8,7 +8,6 @@ import android.support.test.espresso.intent.Intents
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import br.com.androidplayground.home.robots.HomeRobot
 import com.github.salomonbrys.kodein.Kodein
 import org.junit.After
 import org.junit.Before
@@ -23,15 +22,12 @@ abstract class AcceptanceTest<T : Activity>(clazz: Class<T>){
     @JvmField
     val testRule: ActivityTestRule<T> = ActivityTestRule(clazz, true, false)
 
-    lateinit var homeRobot: HomeRobot
-
     @Before
     fun setup() {
         val app = InstrumentationRegistry.getInstrumentation().targetContext.asApp()
         app.resetInjection()
         app.addModule(testDependencies)
         Intents.init()
-        homeRobot = HomeRobot()
 
         startActivity()
     }
