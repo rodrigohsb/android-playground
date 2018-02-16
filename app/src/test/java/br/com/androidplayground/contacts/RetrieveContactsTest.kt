@@ -78,7 +78,6 @@ class RetrieveContactsTest {
         client.name = "Rodrigo Haus da"
 
         val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
-
         assertEquals(clientEntryModels[0].prefix,"RHD")
     }
 
