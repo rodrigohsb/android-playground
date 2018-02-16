@@ -1,6 +1,5 @@
 package br.com.androidplayground.persistence.dao
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import br.com.androidplayground.persistence.model.Client
 
