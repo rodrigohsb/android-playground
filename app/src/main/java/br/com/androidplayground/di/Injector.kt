@@ -32,7 +32,7 @@ class Injector(private val context: Context) {
         }
 
         bind<RetrieveContacts>() with provider {
-            RetrieveContactsInMemory()
+            RetrieveContactsFromDatabase(instance())
         }
 
         bind<RetrieveLabels>() with provider {
