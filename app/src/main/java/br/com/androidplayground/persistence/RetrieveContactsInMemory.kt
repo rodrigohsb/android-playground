@@ -13,8 +13,8 @@ import com.google.gson.Gson
 class RetrieveContactsInMemory : RetrieveContacts {
 
     override fun fetchAll(): List<Client> {
-        return createInMemory()
-//        return fromFile()
+//        return createInMemory()
+        return fromFile()
     }
 
     private fun createInMemory(): List<Client> {
@@ -47,7 +47,7 @@ class RetrieveContactsInMemory : RetrieveContacts {
     }
 
     private fun fromFile(): List<Client> {
-        val jsonMock = ReadFile().read(R.raw.mock_clients_no_content)
+        val jsonMock = ReadFile().read(R.raw.mock_clients)
         return convertJsonToClients(jsonMock).toList()
     }
 

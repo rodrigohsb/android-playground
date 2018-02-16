@@ -43,11 +43,24 @@ dependencies {
 
     implementation "com.github.salomonbrys.kodein:kodein:${kodeinVersion}"
     implementation "com.github.salomonbrys.kodein:kodein-android:${kodeinVersion}"
+    implementation "com.github.salomonbrys.kodein:kodein-core:${kodeinVersion}"
+    implementation "com.github.salomonbrys.kodein:kodein-conf:${kodeinVersion}"
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
 
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
-    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    implementation "org.mockito:mockito-core:${mockitoVersion}"
+    androidTestCompile 'org.mockito:mockito-android:2.9.0'
     testImplementation "junit:junit:${junitVersion}"
+    testImplementation 'org.robolectric:robolectric:3.6.1'
     androidTestImplementation "com.android.support.test:runner:${runnerVersion}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${espressoVersion}"
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
 }

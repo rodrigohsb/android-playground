@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import br.com.androidplayground.R
+import br.com.androidplayground.details.DetailsActivity
 import br.com.androidplayground.home.adapter.HomeAdapter
 import br.com.androidplayground.home.entryModel.ContactEntryModel
 import br.com.androidplayground.home.viewmodel.HomeViewModel
@@ -27,9 +27,9 @@ import kotlinx.android.synthetic.main.layout_home.*
 class HomeActivity : AppCompatActivity(),
         LoadingView, EmptyState, HomeAdapter.OnItemClickListener {
 
-    private val kodein by lazy { LazyKodein(appKodein) }
-    private val userAdapter by lazy { HomeAdapter(this) }
-    private val lManager by lazy { LinearLayoutManager(this)}
+    val kodein by lazy { LazyKodein(appKodein) }
+    val userAdapter by lazy { HomeAdapter(this) }
+    val lManager by lazy { LinearLayoutManager(this)}
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
         val factory = object : ViewModelProvider.Factory {
@@ -67,10 +67,10 @@ class HomeActivity : AppCompatActivity(),
 
         viewModel.isLoading.observe(this,
                 Observer<Boolean> {
+                    clearViews()
                     when(it){
                         true -> {
                             showLoading()
-                            clearViews()
                         }
                         false -> hideLoading()
                     }
@@ -81,9 +81,9 @@ class HomeActivity : AppCompatActivity(),
                     it?.let {
                         if(it.isEmpty()){
                             showEmptyView()
-                        } else{
-                            createRecyclerView(it)
+                            return@Observer
                         }
+                        createRecyclerView(it)
                         return@Observer
                     }
                     showEmptyView()
@@ -114,8 +114,8 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
-    override fun onItemClick(position: Int) {
-        Toast.makeText(this,"Should go to details", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(prefix: String) {
+        DetailsActivity.startActivity(this,prefix)
     }
 
     override fun showLoading() {

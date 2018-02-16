@@ -1,48 +1,55 @@
 package br.com.androidplayground.contacts
 
 import br.com.androidplayground.home.handler.ContactsHandler
+import br.com.androidplayground.persistence.RetrieveContacts
 import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.persistence.model.Company
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations.initMocks
 import java.util.*
 import kotlin.collections.ArrayList
 
 /**
  * @rodrigohsb
  */
-class ContactsProviderTest {
+class RetrieveContactsTest {
 
     private lateinit var contactHandler: ContactsHandler
 
-    private lateinit var company : Company
+    @Mock
+    private lateinit var retrieveContacts: RetrieveContacts
+
     private lateinit var client : Client
     private lateinit var clients : ArrayList<Client>
 
     @Before
     fun setup(){
-
+        initMocks(this)
         contactHandler = ContactsHandler()
 
         createClient()
     }
 
     private fun createClient() {
-        company = Company(fantasyName = "Haus SA",
-                cnpj = anyString(),
+        val company = Company(fantasyName = "Haus SA",
+                cnpj = "",
                 since = Date(),
                 isMei = true)
 
         client = Client(id = 0,
-                name = anyString(),
-                email = anyString(),
-                phone = anyString(),
+                name = "",
+                email = "",
+                phone = "",
                 company = company)
 
         clients = ArrayList<Client>()
         clients.add(client)
+
+        `when`(retrieveContacts.fetchAll()).thenReturn(clients)
     }
 
     @Test
@@ -50,9 +57,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo"
 
-        val clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
-        assertEquals(clientEntryModels[0].prefix, "R")
+        assertEquals(clientEntryModels[0].prefix,"R")
     }
 
     @Test
@@ -60,9 +67,9 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus"
 
-        val clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
-        assertEquals(clientEntryModels[0].prefix, "RH")
+        assertEquals(clientEntryModels[0].prefix,"RH")
     }
 
     @Test
@@ -70,9 +77,8 @@ class ContactsProviderTest {
 
         client.name = "Rodrigo Haus da"
 
-        val clientEntryModels = contactHandler.handleContacts(clients)
-
-        assertEquals(clientEntryModels[0].prefix, "RHD")
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
+        assertEquals(clientEntryModels[0].prefix,"RHD")
     }
 
     @Test
@@ -80,7 +86,7 @@ class ContactsProviderTest {
 
        client.name = "Rodrigo Haus da Silva Bacellar"
 
-        val clientEntryModels = contactHandler.handleContacts(clients)
+        val clientEntryModels = contactHandler.handleContacts(retrieveContacts.fetchAll())
 
         assertEquals(clientEntryModels[0].prefix, "RHD")
         assertEquals(clientEntryModels[0].companyName, "Haus SA")
