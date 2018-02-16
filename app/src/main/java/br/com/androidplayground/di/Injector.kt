@@ -3,12 +3,10 @@ package br.com.androidplayground.di
 import android.content.Context
 import com.github.salomonbrys.kodein.Kodein
 import android.arch.persistence.room.Room
-import br.com.androidplayground.BuildConfig
 import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.home.viewmodel.HomeViewModel
 import br.com.androidplayground.persistence.*
 import br.com.androidplayground.persistence.dao.ClientDAO
-import br.com.androidplayground.persistence.RetrieveLabelsFromDatabase
 import br.com.androidplayground.register.viewmodel.RegisterViewModel
 import com.github.salomonbrys.kodein.*
 
@@ -36,10 +34,7 @@ class Injector(private val context: Context) {
         }
 
         bind<RetrieveLabels>() with provider {
-            when (BuildConfig.DEBUG) {
-                true -> RetrieveLabelsInMemory()
-                false -> RetrieveLabelsFromDatabase()
-            }
+            RetrieveLabelsInMemory()
         }
 
         bind<HomeViewModel>() with provider {
