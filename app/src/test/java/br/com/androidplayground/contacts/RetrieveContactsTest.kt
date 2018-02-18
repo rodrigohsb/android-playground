@@ -36,15 +36,14 @@ class RetrieveContactsTest {
 
     private fun createClient() {
         val company = Company(fantasyName = "Haus SA",
-                cnpj = "",
-                since = Date(),
-                isMei = true)
+                                cnpj = "",
+                                since = Date(),
+                                isMei = true)
 
-        client = Client(id = 0,
-                name = "",
-                email = "",
-                phone = "",
-                company = company)
+        client = Client(name = "",
+                        email = "",
+                        phone = "",
+                        company = company)
 
         clients = ArrayList<Client>()
         clients.add(client)

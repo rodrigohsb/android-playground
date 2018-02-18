@@ -6,7 +6,6 @@ import br.com.androidplayground.di.Injector
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.conf.ConfigurableKodein
-import java.util.Collections.singleton
 
 /**
  * @rodrigohsb

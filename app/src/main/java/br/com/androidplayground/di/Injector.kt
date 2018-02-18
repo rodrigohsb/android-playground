@@ -7,6 +7,8 @@ import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.home.viewmodel.HomeViewModel
 import br.com.androidplayground.persistence.*
 import br.com.androidplayground.persistence.dao.ClientDAO
+import br.com.androidplayground.register.handler.ContactHandler
+import br.com.androidplayground.register.validator.*
 import br.com.androidplayground.register.viewmodel.RegisterViewModel
 import com.github.salomonbrys.kodein.*
 
@@ -46,7 +48,32 @@ class Injector(private val context: Context) {
         }
 
         bind<RegisterViewModel>() with provider {
-            RegisterViewModel(instance())
+            RegisterViewModel(instance(),instance(),instance(),instance())
+        }
+
+        bind<CNPJValidator>() with provider {
+            CNPJValidator()
+        }
+        bind<DateValidator>() with provider {
+            DateValidator()
+        }
+        bind<EmailValidator>() with provider {
+            EmailValidator()
+        }
+        bind<FantasyNameValidator>() with provider {
+            FantasyNameValidator()
+        }
+        bind<NameValidator>() with provider {
+            NameValidator()
+        }
+        bind<PhoneValidator>() with provider {
+            PhoneValidator()
+        }
+        bind<ContactHandler>() with provider {
+            ContactHandler()
+        }
+        bind<Validator>() with provider {
+            Validator(instance(),instance(),instance(),instance(),instance(),instance())
         }
     }
 }
