@@ -36,7 +36,7 @@ class Injector(private val context: Context) {
         }
 
         bind<RetrieveLabels>() with provider {
-            RetrieveLabelsInMemory()
+            RetrieveLabelsFromFile()
         }
 
         bind<HomeViewModel>() with provider {

@@ -63,7 +63,7 @@ class RegisterActivity : AppCompatActivity(){
                 cal.add(Calendar.YEAR, -50)
                 datePickerDialog.datePicker.minDate = cal.timeInMillis
                 datePickerDialog.datePicker.maxDate = Date().time
-
+                datePickerDialog.datePicker.id = R.integer.date_picker_id
                 datePickerDialog.show()
         }
 
@@ -109,12 +109,16 @@ class RegisterActivity : AppCompatActivity(){
     }
 
     private fun showLabels(labels : List<String>) {
+
+        if(labels.isEmpty()) return
+
         first_input_layout.hint = labels[0]
         second_input_layout.hint = labels[1]
         third_input_layout.hint = labels[2]
         fourth_input_layout.hint = labels[3]
         fifth_input_layout.hint = labels[4]
         textView.text = labels[5]
+        textView2.text = labels[6]
     }
 
     override fun onSupportNavigateUp(): Boolean {
