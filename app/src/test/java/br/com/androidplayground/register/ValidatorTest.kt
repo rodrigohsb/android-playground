@@ -37,7 +37,7 @@ class ValidatorTest {
 
     @Test
     fun `test when CNPJ is empty`(){
-        val isValid = cnpjValidator.isValid(anyString())
+        val isValid = cnpjValidator.isValid("")
         assertEquals(false, isValid)
     }
 
@@ -103,7 +103,7 @@ class ValidatorTest {
 
     @Test
     fun `test when EMAIL is empty`(){
-        val isValid = emailValidator.isValid(anyString())
+        val isValid = emailValidator.isValid("")
         assertEquals(false, isValid)
     }
 
@@ -114,7 +114,7 @@ class ValidatorTest {
     }
     @Test
     fun `test when fantasy name is empty`(){
-        val isValid = fantasyNameValidator.isValid(anyString())
+        val isValid = fantasyNameValidator.isValid("")
         assertEquals(false, isValid)
     }
 
@@ -132,7 +132,7 @@ class ValidatorTest {
 
     @Test
     fun `test when name is empty`(){
-        val isValid = nameValidator.isValid(anyString())
+        val isValid = nameValidator.isValid("")
         assertEquals(false, isValid)
     }
 
@@ -162,7 +162,7 @@ class ValidatorTest {
 
     @Test
     fun `test when phone is empty`(){
-        val isValid = phoneValidator.isValid(anyString())
+        val isValid = phoneValidator.isValid("")
         assertEquals(false, isValid)
     }
 

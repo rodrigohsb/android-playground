@@ -60,5 +60,4 @@ class CNPJValidator: IValidator
         else
             (11 - r + 48).toChar()
     }
-
 }

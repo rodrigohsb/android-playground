@@ -9,10 +9,14 @@ import com.google.gson.Gson
 class RetrieveLabelsInMemory : RetrieveLabels {
 
     override fun fetchAll(): List<String> {
-        val jsonMock = ReadFile().read(R.raw.mock_register_labels)
-        return convert(jsonMock).toList()
+        val labels = ArrayList<String>()
+        labels.add("Nome Completo")
+        labels.add("Email")
+        labels.add("Telefone para contato")
+        labels.add("Nome fantasia")
+        labels.add("CNPJ")
+        labels.add("Ativa desde")
+        labels.add("É MEI?")
+        return labels
     }
-
-    private fun convert(json: String) =
-            Gson().fromJson(json, Array<String>::class.java)
 }
