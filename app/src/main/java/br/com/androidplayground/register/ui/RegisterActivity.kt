@@ -91,7 +91,6 @@ class RegisterActivity : AppCompatActivity(){
         date.text = sdf.format(cal.time)
     }
 
-
     private fun initActionBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.apply {

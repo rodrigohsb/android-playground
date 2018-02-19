@@ -4,6 +4,7 @@ import br.com.androidplayground.register.validator.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 import java.util.*
 
 /**
@@ -32,6 +33,12 @@ class ValidatorTest {
     fun `test when CNPJ is fine`(){
         val isValid = cnpjValidator.isValid("82173818000170")
         assertEquals(true, isValid)
+    }
+
+    @Test
+    fun `test when CNPJ is empty`(){
+        val isValid = cnpjValidator.isValid("")
+        assertEquals(false, isValid)
     }
 
     @Test
@@ -95,9 +102,20 @@ class ValidatorTest {
     }
 
     @Test
+    fun `test when EMAIL is empty`(){
+        val isValid = emailValidator.isValid("")
+        assertEquals(false, isValid)
+    }
+
+    @Test
     fun `test when fantasy name is fine`(){
         val isValid = fantasyNameValidator.isValid("Rodrigo LTDA")
         assertEquals(true, isValid)
+    }
+    @Test
+    fun `test when fantasy name is empty`(){
+        val isValid = fantasyNameValidator.isValid("")
+        assertEquals(false, isValid)
     }
 
     @Test
@@ -108,8 +126,14 @@ class ValidatorTest {
 
     @Test
     fun `test when name if fine`(){
-        val isValid = fantasyNameValidator.isValid("Rodrigo Haus")
+        val isValid = nameValidator.isValid("Rodrigo Haus")
         assertEquals(true, isValid)
+    }
+
+    @Test
+    fun `test when name is empty`(){
+        val isValid = nameValidator.isValid("")
+        assertEquals(false, isValid)
     }
 
     @Test
@@ -134,6 +158,12 @@ class ValidatorTest {
     fun `test when phone is fine`(){
         val isValid = phoneValidator.isValid("21999999999")
         assertEquals(true, isValid)
+    }
+
+    @Test
+    fun `test when phone is empty`(){
+        val isValid = phoneValidator.isValid("")
+        assertEquals(false, isValid)
     }
 
     @Test

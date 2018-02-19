@@ -4,11 +4,11 @@ import br.com.androidplayground.home.handler.ContactsHandler
 import br.com.androidplayground.persistence.RetrieveContacts
 import br.com.androidplayground.persistence.model.Client
 import br.com.androidplayground.persistence.model.Company
+import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,7 +48,7 @@ class RetrieveContactsTest {
         clients = ArrayList<Client>()
         clients.add(client)
 
-        `when`(retrieveContacts.fetchAll()).thenReturn(clients)
+        whenever(retrieveContacts.fetchAll()).thenReturn(clients)
     }
 
     @Test

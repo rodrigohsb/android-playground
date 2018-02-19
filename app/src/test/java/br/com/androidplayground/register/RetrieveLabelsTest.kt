@@ -3,12 +3,12 @@ package br.com.androidplayground.register
 import br.com.androidplayground.FileHandler
 import br.com.androidplayground.persistence.RetrieveLabels
 import com.google.gson.Gson
+import com.nhaarman.mockito_kotlin.whenever
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
 
 /**
@@ -30,7 +30,7 @@ class RetrieveLabelsTest {
     fun `test when labels is fine`(){
 
         val list = fetchLabelsFrom("mock_register_labels.json")
-        `when`(retrieveLabels.fetchAll()).thenReturn(list)
+        whenever(retrieveLabels.fetchAll()).thenReturn(list)
         assertThat(retrieveLabels.fetchAll().size, equalTo(list.size))
     }
 
@@ -38,7 +38,7 @@ class RetrieveLabelsTest {
     fun `test when has no labels`(){
 
         val list = fetchLabelsFrom("mock_empty_register_labels.json")
-        `when`(retrieveLabels.fetchAll()).thenReturn(list)
+        whenever(retrieveLabels.fetchAll()).thenReturn(list)
         assertThat(retrieveLabels.fetchAll().size, equalTo(emptyList<String>().size))
 
     }

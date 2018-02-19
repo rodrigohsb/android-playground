@@ -1,5 +1,6 @@
 package br.com.androidplayground.register
 
+import com.nhaarman.mockito_kotlin.whenever
 import br.com.androidplayground.persistence.RetrieveLabels
 import br.com.androidplayground.persistence.dao.ClientDAO
 import br.com.androidplayground.persistence.model.Client
@@ -90,7 +91,7 @@ class ViewModelTest {
     @Test
     fun `test when data is fine`(){
 
-        `when`(validator.isValid(any())).thenReturn(true)
+        whenever(validator.isValid(any())).thenReturn(true)
 
         val isValid = registerViewModel.valid(fineRegisterViewModel)
 
@@ -105,8 +106,8 @@ class ViewModelTest {
     @Test
     fun `test called clientDAO with right params`(){
 
-        `when`(validator.isValid(any())).thenReturn(true)
-        `when`(contactHandler.transform(any())).thenReturn(client)
+        whenever(validator.isValid(any())).thenReturn(true)
+        whenever(contactHandler.transform(any())).thenReturn(client)
 
         val isValid = registerViewModel.valid(fineRegisterViewModel)
 
@@ -120,7 +121,7 @@ class ViewModelTest {
     @Test
     fun `test when data is wrong`(){
 
-        `when`(validator.isValid(any())).thenReturn(false)
+        whenever(validator.isValid(any())).thenReturn(false)
 
         val isValid = registerViewModel.valid(wrongRegisterViewModel)
 

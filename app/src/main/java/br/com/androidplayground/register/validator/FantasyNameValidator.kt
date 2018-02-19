@@ -7,9 +7,13 @@ import java.util.regex.Pattern
  */
 class FantasyNameValidator: IValidator{
 
-    override fun isValid(any: Any): Boolean =
+    override fun isValid(any: Any): Boolean {
 
-            Pattern.compile("[a-zA-Z0-9.? ]*")
-                .matcher(any as String)
-                .matches()
+    val fantasyName = any as String
+
+     return fantasyName.isNotEmpty()
+             && Pattern.compile("[a-zA-Z0-9.? ]*")
+             .matcher(any)
+             .matches()
+    }
 }

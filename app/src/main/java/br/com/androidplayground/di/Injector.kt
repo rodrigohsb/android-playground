@@ -48,7 +48,8 @@ class Injector(private val context: Context) {
         }
 
         bind<RegisterViewModel>() with provider {
-            RegisterViewModel(instance(),instance(),instance(),instance())
+            RegisterViewModel(retrieveLabels = instance(), validator = instance(),
+                                contactHandler = instance(), clientDAO = instance())
         }
 
         bind<CNPJValidator>() with provider {
@@ -73,7 +74,9 @@ class Injector(private val context: Context) {
             ContactHandler()
         }
         bind<Validator>() with provider {
-            Validator(instance(),instance(),instance(),instance(),instance(),instance())
+            Validator(cnpjValidator = instance(),dateValidator = instance(),
+                        emailValidator = instance(), fantasyNameValidator = instance(),
+                        nameValidator = instance(), phoneValidator = instance())
         }
     }
 }

@@ -2,6 +2,7 @@ package br.com.androidplayground.register.validator
 
 /**
  * @rodrigohsb
+ * See {@link <a href="https://gist.github.com/jansenfelipe/5283063">Source</a>}
  */
 class CNPJValidator: IValidator
 {
@@ -17,55 +18,46 @@ class CNPJValidator: IValidator
                 cnpj.length != 14)
             return false
 
-        val dig13: Char
-        val dig14: Char
-        var sm: Int
-        var i: Int
-        var r: Int
-        var num: Int
-        var peso: Int
+        return try {
 
-        try {
-            sm = 0
-            peso = 2
-            i = 11
-            while (i >= 0) {
-                num = cnpj[i].toInt() - 48
-                sm = sm + num * peso
-                peso = peso + 1
-                if (peso == 10)
-                    peso = 2
-                i--
-            }
+            val dig13 = calculateDigit(cnpj,11)
+            val dig14 = calculateDigit(cnpj,12)
 
-            r = sm % 11
-            if (r == 0 || r == 1)
-                dig13 = '0'
-            else
-                dig13 = (11 - r + 48).toChar()
+            dig13 == cnpj[12] && dig14 == cnpj[13]
 
-            sm = 0
-            peso = 2
-            i = 12
-            while (i >= 0) {
-                num = cnpj[i].toInt() - 48
-                sm = sm + num * peso
-                peso = peso + 1
-                if (peso == 10)
-                    peso = 2
-                i--
-            }
-
-            r = sm % 11
-            if (r == 0 || r == 1)
-                dig14 = '0'
-            else
-                dig14 = (11 - r + 48).toChar()
-
-            return dig13 == cnpj[12] && dig14 == cnpj[13]
         } catch (error: Exception) {
-            return false
+            false
         }
+    }
 
+    private fun calculateDigit(cnpj: String, indicator: Int): Char {
+        val sm = calculateWeight(cnpj,indicator)
+        val r = sm % 11
+        return getDigit(r)
+    }
+
+    private fun calculateWeight(cnpj: String, indicator: Int): Int {
+
+        var sm = 0
+        var i = indicator
+        var num: Int
+        var peso = 2
+
+        while (i >= 0) {
+            num = cnpj[i].toInt() - 48
+            sm += num * peso
+            peso += 1
+            if (peso == 10)
+                peso = 2
+            i--
+        }
+        return sm
+    }
+
+    private fun getDigit(r: Int): Char {
+        return if (r == 0 || r == 1)
+            '0'
+        else
+            (11 - r + 48).toChar()
     }
 }
