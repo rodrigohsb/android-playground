@@ -1,7 +1,7 @@
 package br.com.androidplayground
 
-import java.io.File
-import java.util.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 /**
  * @rodrigohsb
@@ -10,27 +10,10 @@ class FileHandler {
 
     fun readResource(fileName: String): String {
 
-
         val classLoader = javaClass.classLoader
-        val file = File(classLoader.getResource(fileName).path)
-
-        try {
-            val scanner = Scanner(file)
-
-            val result = StringBuffer()
-
-            while (scanner.hasNextLine()) {
-                val line = scanner.nextLine()
-                result.append(line).append("\n")
-            }
-
-            scanner.close()
-            return result.toString()
-
-        } catch (e: Throwable) {
-            e.printStackTrace()
-        }
-
-        throw Exception()
+        val inputStream = classLoader.getResourceAsStream(fileName)
+        val isr = InputStreamReader(inputStream)
+        val br = BufferedReader(isr)
+        return br.readLine()
     }
 }
