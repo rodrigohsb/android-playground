@@ -6,7 +6,6 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.PickerActions
 import android.support.test.espresso.matcher.ViewMatchers.*
 import br.com.androidplayground.R
-import kotlinx.android.synthetic.main.layout_register_user.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,14 +29,12 @@ class RegisterDatePickerResult {
         val month = now.get(Calendar.MONTH)+1
         val day = now.get(Calendar.DAY_OF_MONTH)
 
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
         onView(withId(R.integer.date_picker_id))
                 .perform(PickerActions.setDate(year, month, day))
 
         onView(withText("OK")).perform(click())
 
-        onView(withId(R.id.date)).check(matches(withText("19/03/2018")))
+        onView(withId(R.id.date)).check(matches(withText("19/02/2018")))
 
         return true
     }
