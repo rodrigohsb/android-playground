@@ -31,16 +31,13 @@ class RegisterDatePickerResult {
         val day = now.get(Calendar.DAY_OF_MONTH)
 
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val formattedDate = sdf.format(now.time)
 
         onView(withId(R.integer.date_picker_id))
                 .perform(PickerActions.setDate(year, month, day))
 
         onView(withText("OK")).perform(click())
 
-        Thread.sleep(4000)
-
-        onView(withId(R.id.date)).check(matches(withText("19/02/2018")))
+        onView(withId(R.id.date)).check(matches(withText("19/03/2018")))
 
         return true
     }
